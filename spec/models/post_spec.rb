@@ -25,6 +25,15 @@ describe Post do
     subject.blog.must_equal blog
   end
 
+  describe "with an attributes hash passed to the initializer" do
+    subject { Post.new(title: "my title", body: "my body") }
+
+    it "supports setting custom attributes" do
+      subject.title.must_equal "my title"
+      subject.body.must_equal "my body"
+    end
+  end
+
   describe "#publish" do
     before do
       subject.blog = Minitest::Mock.new
