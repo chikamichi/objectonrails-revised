@@ -23,4 +23,12 @@ describe Blog do
       subject.new_post.blog.must_equal(subject)
     end
   end
+
+  describe "#add_entry" do
+    it "adds the entry to the blog" do
+      entry = Object.new
+      subject.add_entry(entry)
+      subject.entries.must_include(entry)
+    end
+  end
 end
