@@ -1,4 +1,5 @@
 require 'minitest/autorun'
+require_relative '../spec_helper_lite'
 require_relative '../../app/models/blog'
 require 'ostruct'
 
@@ -24,11 +25,10 @@ describe Blog do
     end
 
     it "accepts an attribute hash on behalf on the post maker" do
-      post_source = Minitest::Mock.new
-      post_source.expect(:call, @new_post, [{x: 42, y: 'z'}])
+      post_source = Object.new
+      mock(post_source).call({x: 42, y: 'z'}) { @new_post }
       subject.post_source = post_source
       subject.new_post(x: 42, y: 'z')
-      post_source.verify
     end
   end
 

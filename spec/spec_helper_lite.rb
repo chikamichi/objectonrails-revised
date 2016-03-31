@@ -1,3 +1,6 @@
+require File.expand_path('../../config/environment', __FILE__)
+require 'rr'
+
 def stub_module(full_name)
   full_name.to_s.split(/::/).inject(Object) do |context, name|
     begin
