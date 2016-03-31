@@ -38,16 +38,8 @@ describe Post do
   end
 
   describe "#publish" do
-    before do
-      subject.blog = Minitest::Mock.new
-    end
-
-    after do
-      subject.blog.verify
-    end
-
     it "adds the post to the blog" do
-      subject.blog.expect :add_entry, nil, [subject]
+      mock(subject).blog.stub!.add_entry(subject)
       subject.publish
     end
   end
