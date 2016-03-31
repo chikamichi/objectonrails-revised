@@ -1,4 +1,4 @@
-**Following along http://objectsonrails.com/, only improved to support Rails 4.**
+**Following along http://objectsonrails.com/, only improved to support Rails 4 & latest Minitest syntax/features.**
 
 ## Modified steps
 
