@@ -37,6 +37,28 @@ describe Post do
     end
   end
 
+  describe "#pubdate" do
+    describe "before publishing" do
+      it "is blank" do
+        subject.pubdate.must_be_nil
+      end
+    end
+
+    describe "after publishing" do
+      before do
+        @now = DateTime.parse("2016-03-31T09:33")
+        clock = Object.new
+        stub(clock).now { @now }
+        stub(subject).blog.stub!.add_entry(subject)
+        subject.publish(clock)
+      end
+
+      it "is the current time" do
+        subject.pubdate.must_equal @now
+      end
+    end
+  end
+
   describe "#publish" do
     it "adds the post to the blog" do
       mock(subject).blog.stub!.add_entry(subject)
