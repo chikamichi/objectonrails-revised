@@ -11,6 +11,10 @@ class Post
     attrs.each do |k,v| send("#{k}=", v) end
   end
 
+  def picture?
+    image_url.present?
+  end
+
   def publish(clock=DateTime)
     return false unless valid?
     self.pubdate = clock.now
