@@ -45,4 +45,5 @@ end
 
 group :test do
   gem 'rr', require: false
+  gem 'minitest-reporters'
 end
