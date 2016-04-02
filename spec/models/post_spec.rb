@@ -49,6 +49,8 @@ describe Post do
   end
 
   describe "#pubdate" do
+    subject { Post.new(title: "my title", body: "my body") }
+
     describe "before publishing" do
       it "is blank" do
         subject.pubdate.must_be_nil
@@ -71,9 +73,24 @@ describe Post do
   end
 
   describe "#publish" do
-    it "adds the post to the blog" do
-      mock(subject).blog.stub!.add_entry(subject)
-      subject.publish
+    describe "given a valid post" do
+      subject { Post.new(title: "my title", body: "my body") }
+
+      it "adds the post to the blog" do
+        mock(subject).blog.stub!.add_entry(subject)
+        subject.publish
+      end
+    end
+
+    describe "given an invalid post" do
+      it "won't add the post to the blog" do
+        dont_allow(subject.blog).add_entry
+        subject.publish
+      end
+
+      it "returns false" do
+        refute(subject.publish)
+      end
     end
   end
 end
