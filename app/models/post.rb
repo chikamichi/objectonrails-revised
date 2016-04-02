@@ -3,7 +3,7 @@ class Post
   include ActiveModel::Conversion
   include ActiveModel::Validations
 
-  attr_accessor :blog, :title, :body, :pubdate
+  attr_accessor :blog, :title, :body, :image_url, :pubdate
 
   validates :title, presence: true
 
