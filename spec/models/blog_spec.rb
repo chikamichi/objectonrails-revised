@@ -4,7 +4,8 @@ require_relative '../../app/models/blog'
 require 'ostruct'
 
 describe Blog do
-  subject { Blog.new }
+  let(:entries) { [] }
+  subject { Blog.new(->{ entries }) }
 
   it "has no entries" do
     subject.entries.must_be_empty
@@ -35,34 +36,8 @@ describe Blog do
   describe "#add_entry" do
     it "adds the entry to the blog" do
       entry = stub!
+      mock(entry).save
       subject.add_entry(entry)
-      subject.entries.must_include(entry)
-    end
-  end
-
-  describe "#entries" do
-    def stub_entry_with_date(date)
-      OpenStruct.new(pubdate: DateTime.parse(date))
-    end
-
-    it "is sorted in reverse-chronological order" do
-      oldest = stub_entry_with_date("2014-09-09")
-      newest = stub_entry_with_date("2016-04-04")
-      middle = stub_entry_with_date("2015-01-31")
-      subject.add_entry(oldest)
-      subject.add_entry(newest)
-      subject.add_entry(middle)
-      subject.entries.must_equal [newest, middle, oldest]
-    end
-
-    it 'is limited to 10 items' do
-      10.times do |i|
-        subject.add_entry(stub_entry_with_date("2016-03-#{i+1}"))
-      end
-      oldest = stub_entry_with_date('2015-03-02')
-      subject.add_entry(oldest)
-      subject.entries.size.must_equal(10)
-      subject.entries.wont_include(oldest)
     end
   end
 end

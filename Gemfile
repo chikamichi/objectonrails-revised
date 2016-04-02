@@ -44,6 +44,7 @@ group :development do
 end
 
 group :test do
+  gem 'database_cleaner'
   gem 'rr', require: false
   gem 'minitest-reporters'
 end

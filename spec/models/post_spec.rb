@@ -4,10 +4,10 @@ require 'active_model'
 require_relative '../../app/models/post'
 
 describe Post do
-  subject { Post.new }
+  subject { Post.new(title: 'TITLE') }
+  let(:ar) { subject }
 
-  it "starts with blank attributes" do
-    subject.title.must_be_nil
+  it "starts with some blank attributes" do
     subject.body.must_be_nil
   end
 
@@ -49,8 +49,6 @@ describe Post do
   end
 
   describe "#pubdate" do
-    subject { Post.new(title: "my title", body: "my body") }
-
     describe "before publishing" do
       it "is blank" do
         subject.pubdate.must_be_nil
@@ -86,8 +84,6 @@ describe Post do
 
   describe "#publish" do
     describe "given a valid post" do
-      subject { Post.new(title: "my title", body: "my body") }
-
       it "adds the post to the blog" do
         mock(subject).blog.stub!.add_entry(subject)
         subject.publish
@@ -95,6 +91,10 @@ describe Post do
     end
 
     describe "given an invalid post" do
+      before do
+        stub(ar).valid? { false }
+      end
+
       it "won't add the post to the blog" do
         dont_allow(subject.blog).add_entry
         subject.publish
