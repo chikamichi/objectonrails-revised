@@ -1,7 +1,6 @@
 require 'minitest/autorun'
 require_relative '../spec_helper_lite'
-stub_module 'ActiveModel::Naming'
-stub_module 'ActiveModel::Conversion'
+require 'active_model'
 require_relative '../../app/models/post'
 
 describe Post do
