@@ -4,9 +4,13 @@ class PostsController < ApplicationController
   end
 
   def create
-    post = @blog.new_post(post_params)
-    post.publish
-    redirect_to root_path, notice: "Post added!"
+    @post = @blog.new_post(post_params)
+    if @post.publish
+      redirect_to root_path, notice: "Post added!"
+    else
+      flash[:alert] = "Post couldn't be created"
+      render 'new'
+    end
   end
 
   private

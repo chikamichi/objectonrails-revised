@@ -1,5 +1,6 @@
 <h1>New Post</h1>
 <%= form_for @post do |f| %>
+  <%= render partial: 'shared/form_errors', locals: {resource: @post} %>
   <%= f.text_field :title %>
   <%= f.text_area :body %>
   <%= f.submit %>

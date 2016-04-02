@@ -20,4 +20,8 @@ class Post
   def persisted?
     false
   end
+
+  def human_name
+    self.class.model_name.human
+  end
 end
