@@ -28,6 +28,18 @@ describe Post do
     subject.blog.must_equal blog
   end
 
+  it 'is not valid with a blank title' do
+    [nil, "", ''].each do |bad_title|
+      subject.title = bad_title
+      subject.wont_be :valid?
+    end
+  end
+
+  it 'is valid with a non-blank title' do
+    subject.title = 'x'
+    subject.must_be :valid?
+  end
+
   describe "with an attributes hash passed to the initializer" do
     subject { Post.new(title: "my title", body: "my body") }
 
