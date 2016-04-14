@@ -3,17 +3,7 @@ require_relative '../spec_helper_full'
 require_relative '../../app/models/blog'
 
 describe Blog do
-  include SpecHelpers
-
-  before do
-    setup_database
-  end
-
   subject { Blog.new }
-
-  after do
-    teardown_database
-  end
 
   describe "#entries" do
     def make_entry_with_date(date)

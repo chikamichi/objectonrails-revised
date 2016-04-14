@@ -2,9 +2,9 @@ require 'minitest/autorun'
 require_relative '../spec_helper_lite'
 require_relative '../../app/helpers/exhibits_helper'
 
-stub_class 'PicturePostExhibit'
-stub_class 'TextPostExhibit'
-stub_class 'Post'
+SpecHelpers.stub_class 'PicturePostExhibit'
+SpecHelpers.stub_class 'TextPostExhibit'
+SpecHelpers.stub_class 'Post'
 
 describe ExhibitsHelper do
   subject { Object.new.extend(ExhibitsHelper) }

@@ -1,26 +1,32 @@
-require File.expand_path('../../config/environment', __FILE__)
-require 'rr'
-require 'minitest/reporters'
+require_relative 'spec_helper_shared'
+require 'nulldb'
 
-Minitest::Reporters.use!(Minitest::Reporters::DefaultReporter.new)
-# Minitest::Reporters.use!(Minitest::Reporters::SpecReporter.new)
+module DBHelpers
+  def setup_database
+    NullDB.nullify
+  end
 
-def stub_module(full_name)
-  full_name.to_s.split(/::/).inject(Object) do |context, name|
-    begin
-      context.const_get(name)
-    rescue NameError
-      context.const_set(name, Module.new)
-    end
+  def teardown_database
+    NullDB.restore
   end
 end
 
-def stub_class(full_name)
-  full_name.to_s.split(/::/).inject(Object) do |context, name|
-    begin
-      context.const_get(name)
-    rescue NameError
-      context.const_set(name, Class.new)
-    end
+class NonIntegrationSpec < MiniTest::Spec
+  include DBHelpers
+
+  before do
+    setup_database
+  end
+
+  after do
+    teardown_database
+  end
+
+  def self.is_model?(target)
+    target <= ActiveRecord::Base
+  end
+
+  register_spec_type(self) do |desc|
+    NonIntegrationSpec.is_model?(desc)
   end
 end

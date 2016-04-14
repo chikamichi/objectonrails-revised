@@ -6,6 +6,7 @@ require 'ostruct'
 describe Blog do
   let(:entries) { [] }
   subject { Blog.new(->{ entries }) }
+  let(:ar) { subject }
 
   it "has no entries" do
     subject.entries.must_be_empty
