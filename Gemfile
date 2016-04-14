@@ -47,4 +47,5 @@ group :test do
   gem 'database_cleaner'
   gem 'rr', require: false
   gem 'minitest-reporters'
+  gem 'activerecord-nulldb-adapter', github: '9nonnatus/nulldb' # Fix for Active Record 4.2, not merged yet.
 end
